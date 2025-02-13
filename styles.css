@@ -10,7 +10,7 @@ body {
     justify-content: center;
     align-items: center;
     transition: background 0.5s ease-in-out;
-    padding: 20px;
+    padding: 10px;
     margin: 0; /* Fixes shifting issue */
     overflow-x: hidden; /* Prevents horizontal scrolling */
     width: 100%;
@@ -32,17 +32,22 @@ body {
     width: 100%;
     max-width: 450px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(0px);
     transition: all 0.3s ease-in-out;
 }
 
-/* Weather Container */
+/* Ensure the main weather container is centered and responsive */
 .weather-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
+    gap: 15px;
+    width: 100vw; /* Make it take a large portion of the screen */
+    max-width: 300px; /* Prevent it from being too wide */
+    min-width: 350px; /* Prevent it from being too narrow */
+    margin: auto; /* Center it horizontally */
 }
+
 
 /* Individual Weather Cards */
 .weather-card-item {
@@ -57,17 +62,33 @@ body {
     word-wrap: break-word; /* Prevents text overflow */
     overflow: hidden;
 }
+.city-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Ensures both elements are centered */
+    height: 100%; /* Uses full height of the card */
+    text-align: center;
+    position: relative;
+}
 
-/* City Name Fix */
+.map-icon {
+    font-size: 26px; /* Adjust icon size */
+    position: relative;
+    top: 50px; /* Move icon up (negative value) or down (positive value) */
+}
+
 #city-name {
     font-size: 20px;
     font-weight: 600;
-    white-space: nowrap; /* Prevents line breaks */
+    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; /* Adds "..." for long names */
-    max-width: 100%; /* Keeps it inside the card */
-    display: block;
+    text-overflow: ellipsis;
+    max-width: 90%;
+    margin-top: 5px; /* Move city name up/down */
 }
+
+
 
 /* Search Input */
 #city-input {
@@ -226,3 +247,14 @@ button {
         text-overflow: ellipsis;
     }
 }
+
+/* Pop-Up Effect on Hover */
+.weather-card-item {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.weather-card-item:hover {
+    transform: scale(2.5) translateY(-15px); /* Increases size & moves up more */
+    box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.4); /* Stronger shadow for floating effect */
+}
+
