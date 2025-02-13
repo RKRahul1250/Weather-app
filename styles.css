@@ -1,40 +1,98 @@
+/* General Styling */
 body {
     font-family: 'Poppins', sans-serif;
     text-align: center;
     background: linear-gradient(135deg, #1e3c72, #2a5298);
     color: white;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     transition: background 0.5s ease-in-out;
+    padding: 20px;
+    overflow-x: hidden;
 }
 
+/* Force a fixed desktop-like width */
 .container {
-    max-width: 500px;
+    max-width: 400px;
     width: 100%;
+    min-width: 450px;
 }
 
+/* Weather Card */
+.weather-card {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    padding: 20px;
+    width: 100%;
+    max-width: 450px;
+    min-width: 450px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease-in-out;
+}
+
+/* Weather Container */
+.weather-container {
+    display: flex;
+    flex-wrap: wrap; /* Prevents items from overflowing */
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Individual Weather Cards */
+.weather-card-item {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 15px;
+    width: 45%; /* Keeps 2-column layout */
+    min-width: 140px;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    text-align: center;
+}
+
+/* Prevent cards from overflowing */
+.weather-container > .weather-card-item {
+    flex: 1 1 40%; /* Forces a 2-column layout */
+    max-width: 180px;
+}
+
+/* Search Input */
+#city-input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Buttons */
 .button-container {
     display: flex;
-    justify-content: center;  
-    align-items: center;
-    gap: 15px;  
-    margin-top: 10px;  
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
 }
 
-
+/* Buttons General */
 button {
     font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
     border: none;
-    padding: 12px 20px;
+    padding: 12px 15px;
     border-radius: 10px;
-    transition: all 0.3s ease-in-out;
     cursor: pointer;
-    min-width: 150px; 
+    min-width: 140px;
     text-align: center;
+    transition: all 0.3s ease-in-out;
 }
 
 /* Search Button */
@@ -63,55 +121,15 @@ button {
     box-shadow: 0px 5px 15px rgba(238, 239, 241, 0.5);
 }
 
-
-button:active {
-    transform: scale(0.95);
-}
-
-
-/* Weather card styling */
-.weather-card {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 35px;
-    padding: 20px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease-in-out;
-}
-
-.weather-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 10px;
-}
-
-/* Individual sub-card styling */
-.weather-card-item {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 10px;
-    padding: 15px;
-    margin: 10px;
-    width: 45%;
-    min-width: 120px;
-    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease-in-out;
-    text-align: center;
-}
-
-/* Hover animation */
-.weather-card-item:hover {
-    transform: scale(1.05);
-}
-
-/* Weather icons styling */
+/* Weather Icons */
 .weather-icon {
     font-size: 30px;
     color: white;
     margin-bottom: 10px;
+    animation: bounce 1.5s infinite alternate;
 }
 
-/* Fade-in animation */
+/* Animations */
 .fade-in {
     opacity: 0;
     animation: fadeIn 0.8s forwards;
@@ -122,102 +140,70 @@ button:active {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Suggestions dropdown */
-#suggestions-box {
-    position: absolute;
-    width: 90%;
-    background: rgb(62, 60, 60);
-    border-radius: 10px;
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 1000;
-    text-align: left;
-    display: none;
-}
-
-.suggestion-item {
-    padding: 10px;
-    cursor: pointer;
-    border-bottom: 1px solid #fbf9f9;
-}
-
-.suggestion-item:hover {
-    background: #1b1919;
-}
- 
-/* Weather icons animation */
-.weather-icon {
-    font-size: 30px;
-    color: white;
-    margin-bottom: 10px;
-    animation: bounce 1.5s infinite alternate;
-}
-
-/* Rotate the wind icon */
-.wind-icon {
-    animation: spin 3s linear infinite;
-}
-
-/* Pulse effect for humidity icon */
-.humidity-icon {
-    animation: pulse 1.5s infinite alternate;
-}
-
-/* Bouncing animation */
 @keyframes bounce {
-    from {
-        transform: translateY(0.3s);
-    }
-    to {
-        transform: translateY(-5px);
-    }
+    from { transform: translateY(0); }
+    to { transform: translateY(-5px); }
 }
 
-/* Spinning animation */
-@keyframes spin {
-    from {
-        transform: rotate(180deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-/* Pulse animation */
-@keyframes pulse {
-    from {
+/* 💻 Force Desktop Layout on Mobile */
+@media (max-width: 768px) {
+    body {
         transform: scale(1);
+        width: 500px;
+        overflow-x: hidden;
     }
-    to {
-        transform: scale(1.1);
+
+    .container {
+        width: 500px;
+        min-width: 500px;
+    }
+
+    .weather-card {
+        max-width: 500px;
+        min-width: 500px;
+    }
+
+    .weather-container {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .weather-card-item {
+        flex: 1 1 40%;
+        max-width: 180px;
+    }
+
+    .button-container {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    button {
+        min-width: 130px;
     }
 }
 
-/* Cursor proximity effect */
-.weather-card-item {
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-}
+/* 📲 Extra Fix for Smaller Phones */
+@media (max-width: 480px) {
+    body {
+        transform: scale(0.9);
+        width: 500px;
+        overflow-x: hidden;
+    }
 
-.weather-card-item:hover {
-    transform: scale(1.2) translateZ(30px);
-    box-shadow: 0px 15px 30px rgba(255, 255, 255, 0.5);
-}
+    .container,
+    .weather-card {
+        width: 500px;
+        min-width: 500px;
+    }
 
-/* Pop-up effect near cursor */
-.weather-card-item::before {
-    content: "";
-    position: absolute;
-    top: -8px;
-    left: -8px;
-    right: -8px;
-    bottom: -8px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
-    transition: opacity 0.3s ease-in-out;
-    opacity: 0;
-}
+    .weather-container {
+        flex-wrap: wrap;
+    }
 
-.weather-card-item:hover::before {
-    opacity: 1;
+    .weather-card-item {
+        flex: 1 1 45%;
+        max-width: 170px;
+    }
 }
 
