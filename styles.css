@@ -11,14 +11,17 @@ body {
     align-items: center;
     transition: background 0.5s ease-in-out;
     padding: 20px;
-    overflow-x: hidden;
+    margin: 0; /* Fixes shifting issue */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+    width: 100%;
 }
 
-/* Force a fixed desktop-like width */
+/* Main Container */
 .container {
-    max-width: 400px;
-    width: 100%;
+    max-width: 500px;
+    width: 90%;
     min-width: 450px;
+    margin: 0 auto; /* Centers the app */
 }
 
 /* Weather Card */
@@ -28,7 +31,6 @@ body {
     padding: 20px;
     width: 100%;
     max-width: 450px;
-    min-width: 450px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(10px);
     transition: all 0.3s ease-in-out;
@@ -37,7 +39,7 @@ body {
 /* Weather Container */
 .weather-container {
     display: flex;
-    flex-wrap: wrap; /* Prevents items from overflowing */
+    flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
 }
@@ -47,17 +49,24 @@ body {
     background: rgba(255, 255, 255, 0.3);
     border-radius: 10px;
     padding: 15px;
-    width: 45%; /* Keeps 2-column layout */
+    width: 45%;
     min-width: 140px;
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
     text-align: center;
+    word-wrap: break-word; /* Prevents text overflow */
+    overflow: hidden;
 }
 
-/* Prevent cards from overflowing */
-.weather-container > .weather-card-item {
-    flex: 1 1 40%; /* Forces a 2-column layout */
-    max-width: 180px;
+/* City Name Fix */
+#city-name {
+    font-size: 20px;
+    font-weight: 600;
+    white-space: nowrap; /* Prevents line breaks */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Adds "..." for long names */
+    max-width: 100%; /* Keeps it inside the card */
+    display: block;
 }
 
 /* Search Input */
@@ -72,6 +81,34 @@ body {
     text-align: center;
 }
 
+/* Suggestion Box */
+#suggestions-box {
+    position: absolute;
+    width: 90%;
+    max-width: 420px;
+    background: rgba(62, 60, 60, 0.9);
+    border-radius: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    text-align: left;
+    display: none;
+    left: 50%;
+    transform: translateX(-50%); /* Centers suggestion box */
+    padding: 5px;
+}
+
+.suggestion-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #fff;
+    color: white;
+}
+
+.suggestion-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
 /* Buttons */
 .button-container {
     display: flex;
@@ -81,7 +118,6 @@ body {
     margin-top: 10px;
 }
 
-/* Buttons General */
 button {
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
@@ -93,32 +129,6 @@ button {
     min-width: 140px;
     text-align: center;
     transition: all 0.3s ease-in-out;
-}
-
-/* Search Button */
-#search-btn {
-    background: linear-gradient(135deg, #262526, #2d2c2c);
-    color: white;
-    box-shadow: 0px 4px 10px rgba(255, 118, 150, 0.3);
-}
-
-#search-btn:hover {
-    background: linear-gradient(135deg, #080808, #090909);
-    transform: scale(1.05);
-    box-shadow: 0px 5px 15px rgba(228, 223, 224, 0.5);
-}
-
-/* Toggle Button */
-#toggle-unit {
-    background: linear-gradient(135deg, #76aef1, #5c67f2);
-    color: white;
-    box-shadow: 0px 4px 10px rgba(92, 103, 242, 0.3);
-}
-
-#toggle-unit:hover {
-    background: linear-gradient(135deg, #5c67f2, #76aef1);
-    transform: scale(1.05);
-    box-shadow: 0px 5px 15px rgba(238, 239, 241, 0.5);
 }
 
 /* Weather Icons */
@@ -148,19 +158,20 @@ button {
 /* 💻 Force Desktop Layout on Mobile */
 @media (max-width: 768px) {
     body {
-        transform: scale(1);
-        width: 500px;
+        width: 100%;
         overflow-x: hidden;
     }
 
     .container {
-        width: 500px;
-        min-width: 500px;
+        width: 100%;
+        max-width: 450px;
+        min-width: auto;
+        padding: 0 10px;
     }
 
     .weather-card {
-        max-width: 500px;
-        min-width: 500px;
+        max-width: 450px;
+        width: 100%;
     }
 
     .weather-container {
@@ -169,8 +180,9 @@ button {
     }
 
     .weather-card-item {
-        flex: 1 1 40%;
-        max-width: 180px;
+        width: 45%;
+        min-width: 120px;
+        word-wrap: break-word;
     }
 
     .button-container {
@@ -186,15 +198,15 @@ button {
 /* 📲 Extra Fix for Smaller Phones */
 @media (max-width: 480px) {
     body {
-        transform: scale(0.9);
-        width: 500px;
+        transform: scale(1);
+        width: 100%;
         overflow-x: hidden;
     }
 
     .container,
     .weather-card {
-        width: 500px;
-        min-width: 500px;
+        width: 100%;
+        max-width: 450px;
     }
 
     .weather-container {
@@ -202,8 +214,15 @@ button {
     }
 
     .weather-card-item {
-        flex: 1 1 45%;
-        max-width: 170px;
+        width: 45%;
+        min-width: 140px;
+        max-width: 180px;
+    }
+
+    #city-name {
+        font-size: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
-
