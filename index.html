@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+
+    <!-- FontAwesome Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
+    <!-- Google Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Montserrat:wght@300;400;600&display=swap"
+    />
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container text-center">
+      <h1 class="mt-4">🌤 Weather App</h1>
+
+      <div class="weather-card mt-3 p-4">
+        <input
+          type="text"
+          id="city-input"
+          class="form-control"
+          placeholder="Enter City Name..."
+        />
+        <div id="suggestions-box"></div>
+
+        <div class="button-container">
+          <button id="search-btn" class="btn btn-primary">Search</button>
+          <button id="toggle-unit" class="btn btn-secondary">
+            Toggle °C/°F
+          </button>
+        </div>
+
+        <p id="error-message" class="text-danger mt-2"></p>
+
+        <div class="weather-container">
+          <div class="weather-card-item fade-in">
+            <i class="fas fa-map-marker-alt weather-icon"></i>
+            <h2 id="city-name">City Name</h2>
+          </div>
+
+          <div class="weather-card-item fade-in">
+            <img id="weather-icon" src="" alt="Weather Icon" />
+            <h3 id="temperature">--°C</h3>
+          </div>
+
+          <div class="weather-card-item fade-in">
+            <i class="fas fa-cloud-sun weather-icon"></i>
+            <p id="weather-description">Weather Description</p>
+          </div>
+
+          <div class="weather-card-item fade-in">
+            <i class="fas fa-tint weather-icon"></i>
+            <p id="humidity">Humidity: --%</p>
+          </div>
+
+          <div class="weather-card-item fade-in">
+            <i class="fas fa-wind weather-icon"></i>
+            <p id="wind-speed">Wind Speed: -- m/s</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
